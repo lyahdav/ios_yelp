@@ -21,34 +21,45 @@
                             <constraint firstAttribute="width" constant="75" id="rpj-ah-9e2"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restaurant" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="215" translatesAutoresizingMaskIntoConstraints="NO" id="saG-tv-rgH">
-                        <rect key="frame" x="95" y="10" width="215" height="21"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Restaurant" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="205" translatesAutoresizingMaskIntoConstraints="NO" id="saG-tv-rgH">
+                        <rect key="frame" x="95" y="7" width="205" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="address" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gDV-af-YVM">
-                        <rect key="frame" x="95" y="49" width="215" height="15"/>
+                        <rect key="frame" x="95" y="57" width="215" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="khL-yB-jE1">
+                        <rect key="frame" x="95" y="34" width="84" height="17"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="84" id="LtO-Bu-tLG"/>
+                            <constraint firstAttribute="height" constant="17" id="mkD-Pc-G9p"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="saG-tv-rgH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="FQb-DH-YsX"/>
+                    <constraint firstItem="gDV-af-YVM" firstAttribute="top" secondItem="khL-yB-jE1" secondAttribute="bottom" constant="6" id="69J-8W-emD"/>
+                    <constraint firstItem="saG-tv-rgH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="7" id="FQb-DH-YsX"/>
                     <constraint firstItem="rup-Gm-YQx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="I4P-qt-IPH"/>
-                    <constraint firstAttribute="trailing" secondItem="saG-tv-rgH" secondAttribute="trailing" constant="10" id="ORe-4S-gPj"/>
+                    <constraint firstAttribute="trailing" secondItem="saG-tv-rgH" secondAttribute="trailing" constant="20" id="ORe-4S-gPj"/>
                     <constraint firstItem="gDV-af-YVM" firstAttribute="leading" secondItem="saG-tv-rgH" secondAttribute="leading" id="U6e-DX-hYV"/>
                     <constraint firstAttribute="trailing" secondItem="gDV-af-YVM" secondAttribute="trailing" constant="10" id="Xxc-LU-vl8"/>
                     <constraint firstItem="saG-tv-rgH" firstAttribute="leading" secondItem="rup-Gm-YQx" secondAttribute="trailing" constant="10" id="fkH-fO-UV7"/>
-                    <constraint firstItem="gDV-af-YVM" firstAttribute="top" secondItem="saG-tv-rgH" secondAttribute="bottom" constant="18" id="hIo-Vy-jVr"/>
+                    <constraint firstItem="saG-tv-rgH" firstAttribute="leading" secondItem="khL-yB-jE1" secondAttribute="leading" id="iUy-Af-baW"/>
+                    <constraint firstItem="khL-yB-jE1" firstAttribute="top" secondItem="saG-tv-rgH" secondAttribute="bottom" constant="6" id="q0B-e0-tGC"/>
                     <constraint firstItem="rup-Gm-YQx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="xdm-Li-hAE"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="addressLabel" destination="gDV-af-YVM" id="pOp-sb-hpU"/>
                 <outlet property="previewImage" destination="rup-Gm-YQx" id="t7h-V4-lcB"/>
+                <outlet property="ratingImage" destination="khL-yB-jE1" id="33G-Dk-KhJ"/>
                 <outlet property="restaurantNameLabel" destination="saG-tv-rgH" id="bOW-zW-3V2"/>
             </connections>
         </tableViewCell>

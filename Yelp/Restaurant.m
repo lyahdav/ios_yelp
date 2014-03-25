@@ -34,6 +34,7 @@ const CGFloat kMetersPerMile = 1609.34;
             self.address = displayAddress[0];
         }
         self.imageURL = dictionary[@"image_url"];
+        self.ratingImageURL = dictionary[@"rating_img_url"];
     }
     
     return self;

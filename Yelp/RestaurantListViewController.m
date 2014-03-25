@@ -2,6 +2,8 @@
 #import "YelpClient.h"
 #import "RestaurantCell.h"
 #import "Restaurant.h"
+#import "RestaurantCategory.h"
+#import "RestaurantsFilter.h"
 
 NSString * const kYelpConsumerKey = @"_FOB8mCj9pB2GHrF_jturw";
 NSString * const kYelpConsumerSecret = @"0CyrQxEAbviP7b8M2bZR0kKAnFc";
@@ -15,6 +17,7 @@ NSString * const kYelpTokenSecret = @"QLlnnY3hdFEK05I-yfRVtmilBBQ";
 @property (nonatomic, strong) NSArray *restaurants;
 @property (nonatomic, strong) RestaurantCell *prototypeCell;
 @property (nonatomic, strong) NSMutableDictionary *searchParams;
+@property (nonatomic, strong) RestaurantsFilter *filter;
 
 @end
 
@@ -58,10 +61,15 @@ NSString * const kYelpTokenSecret = @"QLlnnY3hdFEK05I-yfRVtmilBBQ";
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStyleBordered target:self action:@selector(filterClick)];
     
     self.searchParams = [@{@"location" : @"San Francisco"} mutableCopy];
+    
+    self.filter = [[RestaurantsFilter alloc] init];
+    
+    [self performSearch:@"thai"];
 }
 
 - (void)filterClick {
     FilterViewController *vc = [[FilterViewController alloc] init];
+    vc.filter = self.filter;
     vc.delegate = self;
     UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:vc];
     [self.navigationController presentViewController:nc animated:YES completion:nil];
@@ -84,14 +92,14 @@ NSString * const kYelpTokenSecret = @"QLlnnY3hdFEK05I-yfRVtmilBBQ";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     RestaurantCell *cell = [tableView dequeueReusableCellWithIdentifier:@"RestaurantCell" forIndexPath:indexPath];
+    cell.rowNumber = indexPath.row;
     cell.restaurant = self.restaurants[indexPath.row];
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
 
-- (RestaurantCell *)prototypeCell
-{
+- (RestaurantCell *)prototypeCell {
     if (!_prototypeCell) {
         _prototypeCell = [self.tableView dequeueReusableCellWithIdentifier:@"RestaurantCell"];
     }
@@ -99,7 +107,11 @@ NSString * const kYelpTokenSecret = @"QLlnnY3hdFEK05I-yfRVtmilBBQ";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [self.prototypeCell heightForRestaurant:self.restaurants[indexPath.row]];
+    return [self.prototypeCell heightForRestaurant:self.restaurants[indexPath.row] atRow:indexPath.row];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 #pragma mark - UISearchBarDelegate
@@ -111,15 +123,24 @@ NSString * const kYelpTokenSecret = @"QLlnnY3hdFEK05I-yfRVtmilBBQ";
 
 #pragma mark - FilterViewControllerDelegate
 
-- (void)filterViewControllerSearchClick:(FilterViewController *)fvc {
+- (void)filterViewControllerSearchClick:(RestaurantsFilter *)filter {
     // For additional parameters, see http://www.yelp.com/developers/documentation/v2/search_api
-    self.searchParams[@"sort"] = @(fvc.sortMode);
-    if (fvc.distanceFilterInMeters) {
-        self.searchParams[@"radius_filter"] = @(fvc.distanceFilterInMeters);
+    
+    self.searchParams[@"sort"] = @(filter.sortMode);
+    if (filter.distanceFilterInMeters) {
+        self.searchParams[@"radius_filter"] = @(filter.distanceFilterInMeters);
     } else {
         [self.searchParams removeObjectForKey:@"radius_filter"];
     }
-    self.searchParams[@"deals_filter"] = @(fvc.dealsFilter);
+    self.searchParams[@"deals_filter"] = @(filter.dealsFiltered);
+    
+    NSMutableArray *filteredCategories = [[NSMutableArray alloc] init];
+    for(RestaurantCategory *category in filter.categories) {
+        if (category.on) {
+            [filteredCategories addObject:category.identifier];
+        }
+    }
+    self.searchParams[@"category_filter"] = [filteredCategories componentsJoinedByString:@","];
 
     [self performSearch];
 }

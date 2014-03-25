@@ -12,7 +12,8 @@
 @interface RestaurantCell : UITableViewCell
 
 @property (nonatomic, weak) Restaurant *restaurant;
+@property (nonatomic, assign) NSInteger rowNumber;
 
-- (CGFloat)heightForRestaurant:(Restaurant *)restaurant;
+- (CGFloat)heightForRestaurant:(Restaurant *)restaurant atRow:(NSInteger)row;
 
 @end

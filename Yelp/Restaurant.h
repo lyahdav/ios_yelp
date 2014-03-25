@@ -15,5 +15,6 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSString *address;
 @property (nonatomic, strong) NSString *imageURL;
+@property (nonatomic, strong) NSString *ratingImageURL;
 
 @end

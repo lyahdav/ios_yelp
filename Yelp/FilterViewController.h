@@ -7,20 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RestaurantsFilter.h"
 
 @class FilterViewController;
 
 @protocol FilterViewControllerDelegate <NSObject>
 
-- (void)filterViewControllerSearchClick:(FilterViewController *)fvc;
+- (void)filterViewControllerSearchClick:(RestaurantsFilter *)filter;
 
 @end
 
 @interface FilterViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, assign) NSInteger sortMode;
-@property (nonatomic, readonly) NSInteger distanceFilterInMeters;
-@property (nonatomic, assign) BOOL dealsFilter;
+@property (nonatomic, strong) RestaurantsFilter *filter;
 @property (nonatomic, weak) id<FilterViewControllerDelegate> delegate;
 
 @end
