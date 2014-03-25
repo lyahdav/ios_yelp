@@ -63,8 +63,6 @@ NSString * const kYelpTokenSecret = @"QLlnnY3hdFEK05I-yfRVtmilBBQ";
     self.searchParams = [@{@"location" : @"San Francisco"} mutableCopy];
     
     self.filter = [[RestaurantsFilter alloc] init];
-    
-    [self performSearch:@"thai"];
 }
 
 - (void)filterClick {
